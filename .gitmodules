@@ -1,0 +1,3 @@
+[submodule "vimified_module"]
+	path = vimified_module
+	url = https://github.com/zaiste/vimified.git
