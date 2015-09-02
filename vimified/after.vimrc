@@ -1,3 +1,6 @@
+" Use space as mapleader
+let mapleader = "\<Space>"
+
 set backupdir=~/vimified/tmp/backup/
 
 " Configure syntastic
@@ -10,7 +13,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
-"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [], 'passive_filetypes': [] }
+let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++1y -stdlib=libc++'
 let g:syntastic_use_quickfix_lists = 1
@@ -47,7 +50,9 @@ let g:airline_linecolumn_prefix = '⭡'
 
 let g:indentLine_char = '│'
 
-nnoremap <Space> :w <CR>
+nnoremap <Leader>w :w <CR>
+nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader><Space> :
 
 " Map easily tab change
 nnoremap th  :tabfirst<CR>
@@ -112,18 +117,16 @@ set expandtab
 set nobinary
 set eol
 
-" ctrlp {
+" ctrlp
 
-let g:ctrlp_custom_ignore = {
-    \ 'file': '\v\.(cpp\.o|cpp\.d|aux|bbg|bbl)$'
-    \}
+let g:ctrlp_use_caching = 0
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
 
-let g:ctrlp_user_command = {
-    \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-    \ 'fallback': 'find %s -type f'
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
-
-"}
+endif
