@@ -109,8 +109,6 @@ nnoremap <Right> :echoe "Use l, you moron..."<CR>
 nnoremap <Up> :echoe "Use k, you moron..."<CR>
 nnoremap <Down> :echoe "Use j, you moron..."<CR>
 
-nnoremap <Space> :w<CR>
-
 " Tabs
 set expandtab
 
