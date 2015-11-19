@@ -1,3 +1,7 @@
+" Enable spelling on text files
+au BufEnter *.tex set spell
+au BufEnter *.rst set spell
+
 " Use space as mapleader
 let mapleader = "\<Space>"
 
@@ -24,6 +28,9 @@ vnoremap // y/<C-R>"<CR>
 " ESC insert mode with jj
 inoremap jj <ESC>
 
+" ESC visual mode with J
+vnoremap J <ESC>
+
 " Activate breakindent
 " TODO Find a way to reactivate this
 " set breakindent
@@ -39,6 +46,8 @@ set nofoldenable
 let g:riv_disable_folding = 1
 let g:riv_fold_auto_update = 0
 
+let g:riv_code_indicator = 0
+
 " Add support for airline
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
@@ -52,6 +61,8 @@ let g:indentLine_char = '│'
 
 nnoremap <Leader>w :w <CR>
 nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>j :set nofoldenable<CR>
+nnoremap <Leader>gp :Gpush<CR>
 nnoremap <Leader><Space> :
 
 " Map easily tab change
@@ -128,3 +139,32 @@ else
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
 endif
+
+" Surrounding
+
+fun! Surround(s1, s2) range
+  exe "normal vgvmboma\<Esc>"
+  normal `a
+  let lineA = line(".")
+  let columnA = col(".")
+  normal `b
+  let lineB = line(".")
+  let columnB = col(".")
+  " exchange marks
+  if lineA > lineB || lineA <= lineB && columnA > columnB
+    " save b in c
+    normal mc
+    " store a in b
+    normal `amb
+    " set a to old b
+    normal `cma
+  endif
+  exe "normal `ba" . a:s2 . "\<Esc>`ai" . a:s1 . "\<Esc>"
+endfun
+
+"  Surround code
+vnoremap <Leader>f :call Surround(':code:`', '`')<CR>
+
+"  Use clang-format to format the file or the selection
+nnoremap <Leader>r :pyf /usr/lib/clang-format.py<CR>
+vnoremap <Leader>r :pyf /usr/lib/clang-format.py<CR>

@@ -23,3 +23,7 @@ RBM
 SOCPAR
 DBN
 GPU
+destructors
+backpropagation
+gaussian
+pretraining
