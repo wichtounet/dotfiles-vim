@@ -59,6 +59,7 @@ let g:airline_linecolumn_prefix = '⭡'
 
 let g:indentLine_char = '│'
 
+" Better user of Leader
 nnoremap <Leader>w :w <CR>
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>j :set nofoldenable<CR>
