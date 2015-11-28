@@ -7,6 +7,8 @@
 !/vimified
 !/vimified/after.vimrc
 !/vimified/before.vimrc
+!/vimified/ftplugin
+!/vimified/ftplugin/vimwiki.vim
 !/vimified/bundle
 !/vimified/bundle/vundle
 !/vimified/extra.vimrc

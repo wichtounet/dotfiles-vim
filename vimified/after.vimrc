@@ -1,3 +1,10 @@
+" Enable spelling on text files
+au BufEnter *.tex set spell
+au BufEnter *.rst set spell
+
+" Use space as mapleader
+let mapleader = "\<Space>"
+
 set backupdir=~/vimified/tmp/backup/
 
 " Configure syntastic
@@ -10,7 +17,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [], 'passive_filetypes': [] }
+let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++1y -stdlib=libc++'
 let g:syntastic_use_quickfix_lists = 1
@@ -20,6 +27,9 @@ vnoremap // y/<C-R>"<CR>
 
 " ESC insert mode with jj
 inoremap jj <ESC>
+
+" ESC visual mode with J
+vnoremap J <ESC>
 
 " Activate breakindent
 " TODO Find a way to reactivate this
@@ -36,6 +46,8 @@ set nofoldenable
 let g:riv_disable_folding = 1
 let g:riv_fold_auto_update = 0
 
+let g:riv_code_indicator = 0
+
 " Add support for airline
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
@@ -47,7 +59,12 @@ let g:airline_symbols_linenr = '⭡'
 
 let g:indentLine_char = '│'
 
-nnoremap <Space> :w <CR>
+" Better user of Leader
+nnoremap <Leader>w :w <CR>
+nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>j :set nofoldenable<CR>
+nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader><Space> :
 
 " Map easily tab change
 nnoremap th  :tabfirst<CR>
@@ -104,7 +121,6 @@ nnoremap <Right> :echoe "Use l, you moron..."<CR>
 nnoremap <Up> :echoe "Use k, you moron..."<CR>
 nnoremap <Down> :echoe "Use j, you moron..."<CR>
 
-nnoremap <Space> :w<CR>
 
 " Make sure to close the completion window
 autocmd CompleteDone * pclose
@@ -115,18 +131,45 @@ set expandtab
 set nobinary
 set eol
 
-" ctrlp {
+" ctrlp
 
-let g:ctrlp_custom_ignore = {
-    \ 'file': '\v\.(cpp\.o|cpp\.d|aux|bbg|bbl)$'
-    \}
+let g:ctrlp_use_caching = 0
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
 
-let g:ctrlp_user_command = {
-    \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-    \ 'fallback': 'find %s -type f'
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
+endif
 
-"}
+" Surrounding
+
+fun! Surround(s1, s2) range
+  exe "normal vgvmboma\<Esc>"
+  normal `a
+  let lineA = line(".")
+  let columnA = col(".")
+  normal `b
+  let lineB = line(".")
+  let columnB = col(".")
+  " exchange marks
+  if lineA > lineB || lineA <= lineB && columnA > columnB
+    " save b in c
+    normal mc
+    " store a in b
+    normal `amb
+    " set a to old b
+    normal `cma
+  endif
+  exe "normal `ba" . a:s2 . "\<Esc>`ai" . a:s1 . "\<Esc>"
+endfun
+
+"  Surround code
+vnoremap <Leader>f :call Surround(':code:`', '`')<CR>
+
+"  Use clang-format to format the file or the selection
+nnoremap <Leader>r :pyf /usr/lib/clang-format.py<CR>
+vnoremap <Leader>r :pyf /usr/lib/clang-format.py<CR>
