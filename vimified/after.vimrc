@@ -53,9 +53,9 @@ let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
 let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = '⮃'
-let g:airline_branch_prefix = '⭠'
-let g:airline_readonly_symbol = '⭤'
-let g:airline_linecolumn_prefix = '⭡'
+let g:airline_symbols_branch = '⭠'
+let g:airline_symbols_readonly = '⭤'
+let g:airline_symbols_linenr = '⭡'
 
 let g:indentLine_char = '│'
 
@@ -121,6 +121,10 @@ nnoremap <Left> :echoe "Use h, you moron..."<CR>
 nnoremap <Right> :echoe "Use l, you moron..."<CR>
 nnoremap <Up> :echoe "Use k, you moron..."<CR>
 nnoremap <Down> :echoe "Use j, you moron..."<CR>
+
+
+" Make sure to close the completion window
+autocmd CompleteDone * pclose
 
 " Tabs
 set expandtab

@@ -15,6 +15,9 @@ grayscale
 MNIST
 DTW
 Sudokus
+SFINAE
+ETL
+backpropagation
 Convolutional
 convolutional
 Sudoku
@@ -24,6 +27,5 @@ SOCPAR
 DBN
 GPU
 destructors
-backpropagation
 gaussian
 pretraining
