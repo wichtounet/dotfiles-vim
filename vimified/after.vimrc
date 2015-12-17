@@ -64,6 +64,7 @@ nnoremap <Leader>w :w <CR>
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>j :set nofoldenable<CR>
 nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader>q :q<CR>
 nnoremap <Leader><Space> :
 
 " Map easily tab change
