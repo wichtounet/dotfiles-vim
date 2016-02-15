@@ -2,9 +2,22 @@
 au BufEnter *.tex set spell
 au BufEnter *.rst set spell
 
+" Improve redrawing smoothness by assuming that my terminal is reasonably fast
+set ttyfast
+
+" Don't bother drawing the screen while executing macros or other automated or
+" scripted processes, just draw the screen as it is when the operation
+" completes
+set lazyredraw
+
+" Don't bother about checking whether Escape is being used as a means to enter
+" a Meta-key combination, just register Escape immediately
+set noesckeys
+
 " Use space as mapleader
 let mapleader = "\<Space>"
 
+" Put all backup files at the same place
 set backupdir=~/vimified/tmp/backup/
 
 " Configure syntastic
@@ -129,21 +142,40 @@ autocmd CompleteDone * pclose
 " Tabs
 set expandtab
 
+" Auto write
+set autowrite
+
+" Put all undo files at the same place
+if has('persistent_undo')
+    set undolevels=5000
+    set undodir=$HOME/.vim_undo
+    set undofile
+endif
+
+" Rotate swap files more often
+set updatecount=100
+
+" Practical settings
 set nobinary
 set eol
 
 " ctrlp
 
-let g:ctrlp_use_caching = 0
 if executable('ag')
+    " Prefer ag over grep
     set grepprg=ag\ --nogroup\ --nocolor
 
+    " use ag in CtrlP for listing files (fast and respects .gitignore)
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+    " ag is fast enough that CtrlP does not need a cache
+    let g:ctrlp_use_caching = 0
 else
-  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-    \ }
+    " Respect .gitignore with git ls-files and find
+    let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+    let g:ctrlp_prompt_mappings = {
+                \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+                \ }
 endif
 
 " Surrounding
@@ -174,3 +206,6 @@ vnoremap <Leader>f :call Surround(':code:`', '`')<CR>
 "  Use clang-format to format the file or the selection
 nnoremap <Leader>r :pyf /usr/lib/clang-format.py<CR>
 vnoremap <Leader>r :pyf /usr/lib/clang-format.py<CR>
+
+" File management with git
+au! BufRead /home/wichtounet/vimwiki/index.wiki execute ':silent ! git -C /home/wichtounet/vimwiki/ pull > /dev/null 2>&1 ;'
