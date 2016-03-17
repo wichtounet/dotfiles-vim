@@ -35,6 +35,13 @@ let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++1y -stdlib=libc++'
 let g:syntastic_use_quickfix_lists = 1
 
+" Yankstack
+call yankstack#setup()
+"let g:yankstack_yank_keys = ['y', 'd']
+"let g:yankstack_map_keys = 0
+nmap <Leader>p <Plug>yankstack_substitute_older_paste
+nmap <Leader>P <Plug>yankstack_substitute_newer_paste
+
 " Search for selection
 vnoremap // y/<C-R>"<CR>
 
@@ -209,3 +216,8 @@ vnoremap <Leader>r :pyf /usr/lib/clang-format.py<CR>
 
 " File management with git
 au! BufRead /home/wichtounet/vimwiki/index.wiki execute ':silent ! git -C /home/wichtounet/vimwiki/ pull > /dev/null 2>&1 ;'
+
+let &printexpr="(v:cmdarg=='' ? ".
+    \"system('lpr' . (&printdevice == '' ? '' : ' -P' . &printdevice)".
+    \". ' ' . v:fname_in) . delete(v:fname_in) + v:shell_error".
+    \" : system('mv '.v:fname_in.' '.v:cmdarg) + v:shell_error)"
