@@ -4,3 +4,6 @@
 [submodule "vimified/bundle/vundle"]
 	path = vimified/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
+[submodule ".vim/bundle/Vundle.vim"]
+	path = .vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim
