@@ -7,4 +7,10 @@
 !/.vim/bundle/Vundle.vim
 !/.vim/tmp/
 !/.vim/tmp/.gitignore
+!/.vim/tmp/swap/
+!/.vim/tmp/swap/.gitignore
+!/.vim/tmp/undo/
+!/.vim/tmp/undo/.gitignore
+!/.vim/tmp/backup/
+!/.vim/tmp/backup/.gitignore
 !/.vimrc
