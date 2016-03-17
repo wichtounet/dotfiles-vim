@@ -5,6 +5,8 @@
 !/.vim
 !/.vim/bundle
 !/.vim/bundle/Vundle.vim
+!/.vim/ftplugin
+!/.vim/ftplugin/vimwiki.vim
 !/.vim/tmp/
 !/.vim/tmp/.gitignore
 !/.vim/tmp/swap/
