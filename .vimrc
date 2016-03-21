@@ -194,6 +194,15 @@ Bundle 'tpope/vim-endwise'
 
 Bundle 'rking/ag.vim'
 
+""""" color_coded (better c++ highlighting)
+
+if !has('nvim')
+    Bundle 'jeaye/color_coded'
+
+    let g:color_coded_filetypes = ['c', 'cpp']
+    nmap <Leader>c :CCtoggle<CR>
+endif
+
 " END Plugins
 
 call vundle#end()
@@ -483,8 +492,8 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Splits ,v and ,h to open new splits (vertical and horizontal)
-nnoremap <leader>v <C-w>v<C-w>l
-nnoremap <leader>h <C-w>s<C-w>j
+nnoremap <Leader>v <C-w>v<C-w>l
+nnoremap <Leader>h <C-w>s<C-w>j
 
 " Yank from current cursor position to end of line
 map Y y$
