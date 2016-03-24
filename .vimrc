@@ -196,11 +196,12 @@ Bundle 'rking/ag.vim'
 
 """"" color_coded (better c++ highlighting)
 
+" For now it is disabled since it doesn't work with ETL/DLL
 if !has('nvim')
-    Bundle 'jeaye/color_coded'
+    "Bundle 'jeaye/color_coded'
 
-    let g:color_coded_filetypes = ['c', 'cpp']
-    nmap <Leader>c :CCtoggle<CR>
+    "let g:color_coded_filetypes = ['c', 'cpp']
+    "nmap <Leader>c :CCtoggle<CR>
 endif
 
 " END Plugins
