@@ -2,6 +2,8 @@
 " Configuration for vimwiki "
 """""""""""""""""""""""""""""
 
+let g:vimwiki_folding='expr'
+
 " Spelling is always useul to text files
 set spell
 

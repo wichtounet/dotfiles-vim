@@ -101,7 +101,7 @@ Bundle 'scrooloose/nerdtree'
 " Keep the window fixed between multiple toggles
 set winfixwidth
 
-nmap <TAB> :NERDTreeToggle<CR>
+nmap <C-n> :NERDTreeToggle<CR>
 
 """" The NERD Commented
 
@@ -109,10 +109,10 @@ Bundle 'scrooloose/nerdcommenter'
 
 """" yank-stack
 
-Bundle 'maxbrunsfeld/vim-yankstack'
+"Bundle 'maxbrunsfeld/vim-yankstack'
 
-nmap <Leader>p <Plug>yankstack_substitute_older_paste
-nmap <Leader>P <Plug>yankstack_substitute_newer_paste
+"nmap <Leader>p <Plug>yankstack_substitute_older_paste
+"nmap <Leader>P <Plug>yankstack_substitute_newer_paste
 
 """" Molokai Color Scheme
 
@@ -212,7 +212,7 @@ filetype plugin indent on
 
 " Plugins initializations
 
-call yankstack#setup()
+"call yankstack#setup()
 
 " ctrlp and the silver searcher
 
@@ -429,9 +429,6 @@ nnoremap cn :cnext<CR>
 nnoremap cp :cprevious<CR>
 nnoremap cc :cclose<CR>
 
-nnoremap M :next<CR>
-nnoremap P :previous<CR>
-
 " Map easily tab change
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
@@ -479,6 +476,10 @@ inoremap jj <ESC>
 
 " ESC visual mode with J
 vnoremap J <ESC>
+
+" Ideally, we wan't both, but they have no distinguishable keystroke
+"nnoremap <C-O> O<Esc>j
+nnoremap <C-o> o<Esc>k
 
 " Better user of Leader
 nnoremap <Leader>w :w <CR>
