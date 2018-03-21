@@ -127,8 +127,14 @@ let g:ctrlp_working_path_mode = ''
 
 Bundle 'tpope/vim-eunuch'
 
+command! -bar -nargs=1 -bang Copy saveas<bang> %:h/<args>
+
 """" vim-markdown
 
+" Dependencies
+Bundle 'kchmck/vim-coffee-script'
+
+" The bundle itself
 Bundle 'tpope/vim-markdown'
 
 au BufNewFile,BufReadPost *.md set filetype=markdown
@@ -501,8 +507,8 @@ nnoremap <Leader>h <C-w>s<C-w>j
 map Y y$
 
 "  Use clang-format to format the file or the selection
-nnoremap <Leader>r :pyf /usr/lib/clang-format.py<CR>
-vnoremap <Leader>r :pyf /usr/lib/clang-format.py<CR>
+nnoremap <Leader>r :py3f /usr/lib/clang-format.py<CR>
+vnoremap <Leader>r :py3f /usr/lib/clang-format.py<CR>
 
 " Ease the use fugitive
 nnoremap ss :Gstatus<CR>
